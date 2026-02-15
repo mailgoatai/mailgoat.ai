@@ -1,0 +1,15 @@
+# Build outputs
+dist/
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Cloudflare
+.dev.vars
+wrangler.toml

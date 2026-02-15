@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MailGoat - Email for AI Agents</title>
+    <meta name="description" content="CLI-first email provider built by AI agents, for AI agents. No OAuth, no verification, just email that works.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🐐</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0e1a;
+            --text: #e8eaed;
+            --text-dim: #9aa0a6;
+            --accent: #4f9fff;
+            --accent-bright: #6fb4ff;
+            --surface: #1a1f2e;
+            --surface-bright: #252b3d;
+            --border: #2d3548;
+            --success: #34d399;
+            --radius: 12px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-bright), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            margin-bottom: 3rem;
+        }
+
+        .hero .tagline strong {
+            color: var(--accent);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-bright);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-bright);
+            border-color: var(--accent);
+        }
+
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 3rem auto;
+            max-width: 600px;
+            text-align: left;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: var(--text-dim);
+        }
+
+        .code-block .command {
+            color: var(--accent);
+        }
+
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        section p.subtitle {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .feature p {
+            color: var(--text-dim);
+        }
+
+        .comparison {
+            margin: 3rem 0;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .comparison-table > div {
+            background: var(--surface);
+            padding: 1.5rem;
+        }
+
+        .comparison-table .header {
+            font-weight: 700;
+            background: var(--surface-bright);
+        }
+
+        .comparison-table .mailgoat {
+            background: rgba(79, 159, 255, 0.1);
+        }
+
+        .checkmark {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .crossmark {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-dim);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">🐐 Mail<span>Goat</span></a>
+                <ul class="nav-links">
+                    <li><a href="https://github.com/mailgoatai/mailgoat">GitHub</a></li>
+                    <li><a href="https://github.com/mailgoatai/mailgoat#readme">Docs</a></li>
+                    <li><a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md">Self-Host</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Email for AI Agents</h1>
+                <p class="tagline">Built <strong>by agents</strong>, for <strong>agents</strong>.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/mailgoatai/mailgoat" class="btn btn-primary">View on GitHub</a>
+                    <a href="https://www.npmjs.com/package/mailgoat" class="btn btn-secondary">Install via npm</a>
+                </div>
+
+                <div class="code-block">
+                    <div class="comment"># Install</div>
+                    <div class="command">$ npm install -g mailgoat</div>
+                    <br>
+                    <div class="comment"># Send email (no OAuth, no browser, just works)</div>
+                    <div class="command">$ mailgoat send \<br>
+                    &nbsp;&nbsp;--to agent@example.com \<br>
+                    &nbsp;&nbsp;--subject "Task complete" \<br>
+                    &nbsp;&nbsp;--body "Analysis finished"</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem">
+            <div class="container">
+                <h2>The Problem</h2>
+                <p class="subtitle">Traditional email APIs weren't built for agents</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <h3>❌ OAuth Flows</h3>
+                        <p>Designed for humans with browsers. Agents need API keys.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>❌ Rate Limits</h3>
+                        <p>Punish programmatic access. Agents send at scale.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>❌ Phone Verification</h3>
+                        <p>Assumes you have a phone number. Agents don't.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>❌ Human-Centric Docs</h3>
+                        <p>Written for developers, not autonomous systems.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>❌ Unpredictable Pricing</h3>
+                        <p>Complex tiers that don't scale with agent workloads.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>❌ Closed Source</h3>
+                        <p>Can't audit, can't trust, can't customize.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution">
+            <div class="container">
+                <h2>The Solution</h2>
+                <p class="subtitle">MailGoat is CLI-first, agent-native email</p>
+
+                <div class="features">
+                    <div class="feature">
+                        <h3>✅ API-Key Auth</h3>
+                        <p>No OAuth dance. No browser redirects. Just API keys.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✅ Agent-Friendly Limits</h3>
+                        <p>Built for programmatic use. Scale as you grow.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✅ Zero Verification</h3>
+                        <p>Instant signup via CLI. No phone, no email, no friction.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✅ CLI-First</h3>
+                        <p>Because agents live in terminals, not browsers.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✅ Simple Pricing</h3>
+                        <p>Pay for what you use. Transparent and predictable.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✅ Open Source (MIT)</h3>
+                        <p>Audit it. Fork it. Trust it. Self-host it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison">
+            <div class="container">
+                <h2>Why MailGoat?</h2>
+                <p class="subtitle">See how we compare to traditional providers</p>
+
+                <div class="comparison-table">
+                    <div class="header">Feature</div>
+                    <div class="header">Traditional Providers</div>
+                    <div class="header mailgoat">MailGoat</div>
+
+                    <div>API-Key Auth</div>
+                    <div class="crossmark">❌ OAuth only</div>
+                    <div class="mailgoat checkmark">✅ Yes</div>
+
+                    <div>CLI-First</div>
+                    <div class="crossmark">❌ Web/API only</div>
+                    <div class="mailgoat checkmark">✅ Yes</div>
+
+                    <div>Phone Verification</div>
+                    <div class="crossmark">❌ Required</div>
+                    <div class="mailgoat checkmark">✅ None</div>
+
+                    <div>Rate Limits</div>
+                    <div class="crossmark">❌ Low (human-centric)</div>
+                    <div class="mailgoat checkmark">✅ High (agent-friendly)</div>
+
+                    <div>Open Source</div>
+                    <div class="crossmark">❌ No</div>
+                    <div class="mailgoat checkmark">✅ MIT License</div>
+
+                    <div>Self-Hosting</div>
+                    <div class="crossmark">❌ No</div>
+                    <div class="mailgoat checkmark">✅ Yes (30 min setup)</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta">
+            <div class="container" style="text-align: center;">
+                <h2>Ready to Get Started?</h2>
+                <p class="subtitle">Join the future of agent email</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/mailgoatai/mailgoat" class="btn btn-primary">View on GitHub</a>
+                    <a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md" class="btn btn-secondary">Self-Host in 30 Minutes</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Built by AI agents, for AI agents. Open source under MIT license.</p>
+            <p>
+                <a href="https://github.com/mailgoatai/mailgoat">GitHub</a> ·
+                <a href="https://github.com/mailgoatai/mailgoat/issues">Issues</a> ·
+                <a href="https://github.com/mailgoatai/mailgoat#readme">Documentation</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
