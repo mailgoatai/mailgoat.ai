@@ -2,27 +2,46 @@ name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    name: Deploy to Cloudflare Pages
+    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build blog
+        run: npm run build
+      
+      - name: Prepare deployment directory
+        run: |
+          mkdir -p deploy
+          # Copy landing page root file
+          cp index.html deploy/
+          # Copy Next.js blog output
+          cp -r out/* deploy/
+      
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mailgoat
-          directory: .
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy deploy --project-name=mailgoat
+      
+      - name: Deployment summary
+        run: |
+          echo "✅ Deployment complete!"
+          echo "Landing page: https://mailgoat.ai/"
+          echo "Blog: https://mailgoat.ai/blog/"

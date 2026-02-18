@@ -1,0 +1,117 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--accent, #4f9fff);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: var(--text, #1a1a1a);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-dim, #6b7280);
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-dim, #6b7280);
+  font-size: 1.1rem;
+  padding: 3rem 0;
+}
+
+.post {
+  padding: 1.5rem;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.post:hover {
+  border-color: var(--accent, #4f9fff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.postLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.postLink h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--text, #1a1a1a);
+}
+
+.postLink:hover h2 {
+  color: var(--accent, #4f9fff);
+}
+
+.excerpt {
+  margin-bottom: 1rem;
+  color: var(--text-dim, #6b7280);
+  line-height: 1.6;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--text-dim, #6b7280);
+  margin-bottom: 0.75rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  background: var(--surface, #f3f4f6);
+  color: var(--text-dim, #6b7280);
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .postLink h2 {
+    font-size: 1.5rem;
+  }
+}

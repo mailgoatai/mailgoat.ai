@@ -1,6 +1,9 @@
 # Build outputs
 dist/
 .cache/
+.next/
+out/
+node_modules/
 
 # OS files
 .DS_Store

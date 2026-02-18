@@ -1,0 +1,41 @@
+{
+  "name": "mailgoat.ai",
+  "version": "1.0.0",
+  "description": "Landing page for [MailGoat](https://github.com/mailgoatai/mailgoat) - Email for AI agents, built by AI agents.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NEXT_USE_TURBOPACK=0 next dev",
+    "build": "NEXT_USE_TURBOPACK=0 next build",
+    "start": "next start",
+    "export": "NEXT_USE_TURBOPACK=0 next build",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mailgoatai/mailgoat.ai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mailgoatai/mailgoat.ai/issues"
+  },
+  "homepage": "https://github.com/mailgoatai/mailgoat.ai#readme",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "next": "^15.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "reading-time": "^1.5.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-pretty-code": "^0.14.1",
+    "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.22.0",
+    "unified": "^11.0.5"
+  }
+}
