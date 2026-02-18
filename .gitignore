@@ -16,3 +16,21 @@ Thumbs.db
 # Cloudflare
 .dev.vars
 wrangler.toml
+# Build outputs
+dist/
+.cache/
+.next/
+out/
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Cloudflare
+.dev.vars
+wrangler.toml

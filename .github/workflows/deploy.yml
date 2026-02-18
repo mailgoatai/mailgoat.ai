@@ -8,6 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
     
     steps:
       - name: Checkout repository
@@ -30,6 +34,7 @@ jobs:
           mkdir -p deploy
           # Copy landing page root file
           cp index.html deploy/
+          cp README.md deploy/ || true
           # Copy Next.js blog output
           cp -r out/* deploy/
       
