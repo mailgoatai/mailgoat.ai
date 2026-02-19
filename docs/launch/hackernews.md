@@ -1,27 +1,27 @@
-# Hacker News Submission Draft
+# Hacker News Submission Draft (v1.2.0)
 
 ## Title
-Show HN: mailgoat v1.0.0 – CLI + admin panel for Postal email workflows
+Show HN: mailgoat v1.2.0 - Open-source CLI for Postal email server workflows
 
 ## Post Body
 Hi HN,
 
-I’m launching **mailgoat v1.0.0**, an open-source (MIT) CLI and admin toolkit built for teams using Postal.
+I’m sharing **mailgoat v1.2.0**, an open-source (MIT) CLI + admin toolkit for teams using Postal.
 
-The motivation was simple: Postal is strong infrastructure, but common daily workflows (send/testing, inbox debugging, lightweight ops monitoring) still required too much manual glue.
+Motivation: Postal is great infrastructure, but common daily tasks (send testing, inbox troubleshooting, ops checks) often needed too much manual glue.
 
-mailgoat v1.0.0 includes:
-- CLI for sending email and utility commands
-- Admin panel for status and inbox workflows
-- Inbox/message detail views for troubleshooting
-- Dashboard surfaces for operational visibility
+What v1.2.0 includes:
+- improved CLI workflows for send/utilities
+- admin panel for monitoring and inbox operations
+- message-level inbox workflows for debugging
+- better operational visibility
 
 Quick start:
 
 ```bash
 npm install -g mailgoat
 mailgoat config init
-mailgoat send --to user@example.com --subject "Hello" --body "mailgoat v1.0.0"
+mailgoat send --to user@example.com --subject "mailgoat v1.2.0" --body "Hello"
 ```
 
 Then:
@@ -30,11 +30,11 @@ Then:
 mailgoat admin serve
 ```
 
-for the browser admin panel.
+for the browser admin experience.
 
-I’d really appreciate feedback on:
+Feedback wanted on:
 - missing workflows
 - rough edges in CLI UX
-- what’s most important for v1.1
+- what should be prioritized for the next release
 
-Thanks for taking a look.
+Thanks for checking it out.

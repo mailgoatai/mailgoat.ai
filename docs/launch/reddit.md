@@ -1,51 +1,69 @@
-# Reddit Launch Posts (v1.0.0)
+# Reddit Launch Posts (v1.2.0)
 
 ## r/selfhosted
 
-**Title:** mailgoat v1.0.0: open-source CLI + admin panel for Postal workflows
+**Title:** mailgoat v1.2.0: open-source CLI + admin toolkit for Postal workflows
 
 **Body:**
-Hi folks, we just released **mailgoat v1.0.0**.
+Hi folks, we just released **mailgoat v1.2.0**.
 
-mailgoat is an MIT-licensed tool focused on improving day-to-day workflows for teams running Postal.
+mailgoat is an MIT-licensed tool focused on practical workflows for teams running Postal.
 
-What it includes:
-- CLI for sending email and utility workflows
+What’s useful in v1.2.0:
+- CLI for send/testing and utility workflows
 - Admin panel for monitoring and inbox operations
-- Inbox/message detail views for debugging
-- Analytics/dashboard surfaces for operational visibility
+- Inbox/message detail flows for troubleshooting
+- Better operational dashboard visibility
 
 Quick start:
 
 ```bash
 npm install -g mailgoat
 mailgoat config init
-mailgoat send --to user@example.com --subject "Hello" --body "mailgoat v1.0.0"
+mailgoat send --to user@example.com --subject "mailgoat v1.2.0" --body "Hello"
 ```
 
-You can also run:
+Admin panel:
 
 ```bash
 mailgoat admin serve
 ```
 
-to use the admin panel.
-
-If you run Postal in self-hosted environments, I’d love feedback on usability, missing workflows, and integration pain points.
+If you’re self-hosting Postal, I’d appreciate feedback on missing workflows and rough edges.
 
 ## r/opensource
 
-**Title:** Introducing mailgoat v1.0.0 (MIT): Postal-focused CLI + admin toolkit
+**Title:** Introducing mailgoat v1.2.0 (MIT): Postal-focused CLI + admin toolkit
 
 **Body:**
-We’ve launched **mailgoat v1.0.0**, an open-source (MIT) project built to improve Postal developer/operator experience.
+We’ve launched **mailgoat v1.2.0**, an MIT-licensed open-source project to improve Postal developer/operator workflows.
 
-The goal: reduce friction for common workflows like sending test email, inspecting inboxes, and monitoring system behavior.
+Goal: reduce friction for common tasks like send testing, inbox debugging, and operational monitoring.
 
-Highlights in v1.0.0:
-- CLI-based send and utility commands
-- Admin panel for monitoring and inbox management
-- Message detail views and operational dashboard support
-- Documentation for quick start, API usage, and troubleshooting
+v1.2.0 highlights:
+- improved CLI workflows
+- admin panel and inbox workflow improvements
+- better operational visibility
+- practical docs and examples
 
-If this sounds useful, please try it and share issues/feature requests. We’re actively shaping the roadmap from user feedback.
+If this is relevant to your stack, I’d love your feedback and issue reports.
+
+## r/node
+
+**Title:** mailgoat v1.2.0: open-source Node.js/TypeScript CLI + admin tooling for Postal
+
+**Body:**
+Shipped **mailgoat v1.2.0** for teams running Postal and wanting smoother Node.js/TypeScript workflows.
+
+What it gives you:
+- CLI-first send/testing workflows
+- admin panel for monitoring/inbox operations
+- easier email troubleshooting with message-level visibility
+
+Install:
+
+```bash
+npm install -g mailgoat
+```
+
+Would love feedback from Node users on DX, command ergonomics, and integration gaps.

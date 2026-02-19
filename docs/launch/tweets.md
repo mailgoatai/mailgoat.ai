@@ -1,32 +1,32 @@
-# mailgoat v1.0.0 Tweet Thread
+# mailgoat v1.2.0 Tweet Thread
 
 ## Tweet 1
-mailgoat v1.0.0 is live 🚀
+mailgoat v1.2.0 is live 🚀
 
-A practical CLI + admin panel for teams using Postal.
+Open-source CLI + admin workflows for teams running Postal.
 
-Send faster, debug inboxes easier, and monitor operations with less glue code.
+Ship faster, debug inboxes easier, and monitor operations with less glue.
 
 #opensource #devtools #selfhosted
 
 ## Tweet 2
-Why we built it:
+Why mailgoat:
 
-Postal is powerful, but day-to-day workflows still felt too manual.
+Postal is strong infra, but daily workflows were still too manual.
 
-We wanted better ergonomics for:
-- sending
-- monitoring
+We built mailgoat to simplify:
+- send/test workflows
 - inbox troubleshooting
-- admin workflows
+- admin visibility
+- operational routines
 
 ## Tweet 3
-What’s in v1.0.0:
+What’s in v1.2.0:
 
-- CLI for sending emails
-- Admin panel for monitoring
-- Inbox management + message detail
-- Analytics dashboard
+- CLI improvements for send + utilities
+- Admin panel upgrades for monitoring
+- Inbox/message workflow improvements
+- Better operational dashboard surfaces
 - MIT licensed
 
 ## Tweet 4
@@ -35,26 +35,27 @@ Quick start:
 ```bash
 npm install -g mailgoat
 mailgoat config init
-mailgoat send --to user@example.com --subject "Hello" --body "World"
+mailgoat send --to user@example.com --subject "mailgoat v1.2.0" --body "Hello"
 ```
 
 ## Tweet 5
 Need a UI?
 
-Run:
-
 ```bash
 mailgoat admin serve
 ```
 
-Then use the admin panel for inbox and operations workflows.
+Use admin for inbox workflows and operational checks.
 
 ## Tweet 6
-We’re just getting started.
+Roadmap focus after v1.2.0:
 
-Roadmap includes deeper analytics, stronger policy controls, and expanded SDK/integration support.
+- deeper analytics
+- better policy/admin controls
+- stronger multi-env workflows
+- SDK/integration improvements
 
 ## Tweet 7
-Try mailgoat v1.0.0, star the repo, and share feedback.
+Try v1.2.0, star the repo, and tell us what’s missing.
 
-Your issues and real-world use cases will shape v1.1.
+Real user feedback drives what ships next.
