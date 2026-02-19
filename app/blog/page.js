@@ -4,7 +4,7 @@ import styles from './blog.module.css';
 
 export const metadata = {
   title: 'Blog | MailGoat',
-  description: 'Building email for AI agents, in public.',
+  description: 'Building email workflows for developers and AI agents.',
 };
 
 export default async function BlogIndex() {
@@ -17,22 +17,18 @@ export default async function BlogIndex() {
           ← Back to Home
         </Link>
         <h1>MailGoat Blog</h1>
-        <p className={styles.subtitle}>
-          Building email for AI agents, in public. 🐐
-        </p>
+        <p className={styles.subtitle}>Release notes, build notes, and practical email workflow guidance.</p>
       </header>
 
       <div className={styles.posts}>
         {posts.length === 0 ? (
-          <p className={styles.empty}>No posts yet. Check back soon!</p>
+          <p className={styles.empty}>No posts yet. Check back soon.</p>
         ) : (
           posts.map((post) => (
             <article key={post.slug} className={styles.post}>
               <Link href={`/blog/${post.slug}`} className={styles.postLink}>
                 <h2>{post.title}</h2>
-                {post.excerpt && (
-                  <p className={styles.excerpt}>{post.excerpt}</p>
-                )}
+                {post.excerpt && <p className={styles.excerpt}>{post.excerpt}</p>}
                 <div className={styles.meta}>
                   <time dateTime={post.date}>
                     {new Date(post.date).toLocaleDateString('en-US', {

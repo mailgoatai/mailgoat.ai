@@ -1,448 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MailGoat - Email for AI Agents</title>
-    <meta name="description" content="CLI-first email provider built by AI agents, for AI agents. No OAuth, no verification, just email that works.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🐐</text></svg>">
+    <meta
+        name="description"
+        content="CLI-first email provider built by AI agents, for AI agents. No OAuth, no verification, just email that works."
+    />
+    <link
+        rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🐐</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet"
+    />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #081322;
+            --bg-2: #0f2037;
+            --card: rgba(14, 32, 55, 0.72);
+            --card-strong: rgba(20, 42, 70, 0.92);
+            --text: #eaf2ff;
+            --text-dim: #98b0cf;
+            --brand: #1bc4c0;
+            --brand-2: #36e17c;
+            --line: rgba(126, 160, 196, 0.26);
+            --radius: 16px;
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+            --max: 1160px;
         }
 
-        :root {
-            --bg: #0a0e1a;
-            --text: #e8eaed;
-            --text-dim: #9aa0a6;
-            --accent: #4f9fff;
-            --accent-bright: #6fb4ff;
-            --surface: #1a1f2e;
-            --surface-bright: #252b3d;
-            --border: #2d3548;
-            --success: #34d399;
-            --radius: 12px;
-            --shadow: 0 4px 20px rgba(0,0,0,0.3);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            background: var(--bg);
+            font-family: 'Space Grotesk', system-ui, sans-serif;
             color: var(--text);
-            line-height: 1.6;
+            background:
+                radial-gradient(1200px 700px at 10% -20%, #184a7a 0%, transparent 65%),
+                radial-gradient(900px 600px at 90% -10%, #114f44 0%, transparent 60%),
+                linear-gradient(160deg, var(--bg), var(--bg-2));
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
         .container {
-            max-width: 1100px;
+            width: min(var(--max), 92vw);
             margin: 0 auto;
-            padding: 0 2rem;
+        }
+
+        .surface {
+            backdrop-filter: blur(10px);
+            background: var(--card);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
         }
 
         header {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+            background: linear-gradient(to bottom, rgba(8, 19, 34, 0.92), rgba(8, 19, 34, 0.35));
+            border-bottom: 1px solid rgba(126, 160, 196, 0.18);
         }
 
         nav {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.02em;
             text-decoration: none;
+            color: var(--text);
+            font-size: 1.25rem;
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--brand);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.25rem;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--text-dim);
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--brand);
         }
 
         .hero {
-            padding: 6rem 0;
-            text-align: center;
+            padding: 5rem 0 3.5rem;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--accent-bright), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-wrap {
+            border-radius: 26px;
+            padding: 2.5rem;
+            display: grid;
+            gap: 1.5rem;
         }
 
-        .hero .tagline {
-            font-size: 1.5rem;
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--line);
             color: var(--text-dim);
-            margin-bottom: 3rem;
+            border-radius: 999px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.82rem;
+            width: fit-content;
         }
 
-        .hero .tagline strong {
-            color: var(--accent);
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.3rem, 6vw, 4.2rem);
+            line-height: 1.06;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: clamp(1rem, 2vw, 1.24rem);
+            max-width: 65ch;
+        }
+
+        .hero p strong {
+            color: var(--brand);
+            font-weight: 700;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
             flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 0.6rem;
         }
 
         .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 0.82rem 1.2rem;
             text-decoration: none;
-            transition: all 0.2s;
+            font-weight: 700;
+            transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-bright);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+            color: #042522;
+            background: linear-gradient(120deg, var(--brand), var(--brand-2));
+            box-shadow: 0 8px 26px rgba(27, 196, 192, 0.32);
         }
 
         .btn-secondary {
-            background: var(--surface);
             color: var(--text);
-            border: 1px solid var(--border);
+            border-color: var(--line);
+            background: var(--card-strong);
         }
 
-        .btn-secondary:hover {
-            background: var(--surface-bright);
-            border-color: var(--accent);
+        .hero-grid {
+            display: grid;
+            gap: 1.1rem;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            margin-top: 0.2rem;
+        }
+
+        .kpi {
+            border-radius: 12px;
+            padding: 0.9rem;
+            border: 1px solid var(--line);
+            background: rgba(9, 24, 41, 0.55);
+        }
+
+        .kpi .label {
+            color: var(--text-dim);
+            font-size: 0.84rem;
+        }
+
+        .kpi .value {
+            font-family: 'Outfit', sans-serif;
+            margin-top: 0.25rem;
+            font-size: 1.05rem;
+            font-weight: 700;
         }
 
         .code-block {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            margin: 3rem auto;
-            max-width: 600px;
-            text-align: left;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
+            margin-top: 1.2rem;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: #0a1c30;
+            padding: 1rem 1.1rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             overflow-x: auto;
+            font-size: 0.9rem;
+            color: #b9f7d5;
         }
 
-        .code-block .comment {
-            color: var(--text-dim);
-        }
-
-        .code-block .command {
-            color: var(--accent);
+        .comment {
+            color: #7ea8cc;
         }
 
         section {
-            padding: 5rem 0;
-            border-bottom: 1px solid var(--border);
+            padding: 3.2rem 0;
         }
 
-        section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(1.85rem, 4vw, 2.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.55rem;
         }
 
-        section p.subtitle {
-            text-align: center;
+        .subtitle {
             color: var(--text-dim);
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1.7rem;
+            font-size: 1.03rem;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
 
         .feature {
-            background: var(--surface);
-            padding: 2rem;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            transition: transform 0.2s, border-color 0.2s;
+            border-radius: 14px;
+            padding: 1.2rem;
+            border: 1px solid var(--line);
+            background: rgba(8, 22, 37, 0.72);
+            transition: transform 0.18s ease, border-color 0.22s ease;
         }
 
         .feature:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
+            transform: translateY(-2px);
+            border-color: rgba(27, 196, 192, 0.6);
         }
 
         .feature h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
+            color: var(--brand);
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 0.4rem;
+            font-size: 1.12rem;
         }
 
         .feature p {
             color: var(--text-dim);
         }
 
-        .comparison {
-            margin: 3rem 0;
+        .comparison-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: var(--card);
         }
 
         .comparison-table {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1px;
-            background: var(--border);
-            border-radius: var(--radius);
-            overflow: hidden;
+            grid-template-columns: 1.2fr 1fr 1fr;
         }
 
         .comparison-table > div {
-            background: var(--surface);
-            padding: 1.5rem;
+            padding: 0.92rem 1rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            color: var(--text-dim);
+        }
+
+        .comparison-table > div:nth-child(3n) {
+            border-right: none;
         }
 
         .comparison-table .header {
+            background: rgba(11, 31, 52, 0.95);
+            color: var(--text);
             font-weight: 700;
-            background: var(--surface-bright);
         }
 
-        .comparison-table .mailgoat {
-            background: rgba(79, 159, 255, 0.1);
+        .mailgoat {
+            background: rgba(27, 196, 192, 0.1);
         }
 
         .checkmark {
-            color: var(--success);
+            color: #54ef9b;
             font-weight: 700;
         }
 
         .crossmark {
-            color: #ef4444;
+            color: #ff7b7b;
             font-weight: 700;
         }
 
-        footer {
-            padding: 3rem 0;
+        .cta-panel {
+            border-radius: 18px;
+            padding: 2rem;
             text-align: center;
+        }
+
+        footer {
+            padding: 2.4rem 0 3rem;
             color: var(--text-dim);
+            text-align: center;
         }
 
         footer a {
-            color: var(--accent);
+            color: var(--brand);
             text-decoration: none;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+        .reveal {
+            animation: reveal 640ms ease both;
+        }
 
-            .hero .tagline {
-                font-size: 1.2rem;
-            }
+        .reveal.delay {
+            animation-delay: 120ms;
+        }
 
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 800px) {
             .comparison-table {
                 grid-template-columns: 1fr;
+            }
+
+            .comparison-table > div {
+                border-right: none;
             }
 
             .nav-links {
                 display: none;
             }
+
+            .hero-wrap {
+                padding: 1.3rem;
+            }
+
+            .cta-panel {
+                padding: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="/" class="logo">🐐 Mail<span>Goat</span></a>
-                <ul class="nav-links">
-                    <li><a href="https://github.com/mailgoatai/mailgoat">GitHub</a></li>
-                    <li><a href="https://github.com/mailgoatai/mailgoat#readme">Docs</a></li>
-                    <li><a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md">Self-Host</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<header>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">🐐 Mail<span>Goat</span></a>
+            <ul class="nav-links">
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="https://github.com/mailgoatai/mailgoat">GitHub</a></li>
+                <li><a href="https://github.com/mailgoatai/mailgoat#readme">Docs</a></li>
+                <li><a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md">Self-Host</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>Email for AI Agents</h1>
-                <p class="tagline">Built <strong>by agents</strong>, for <strong>agents</strong>.</p>
+<main>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-wrap surface reveal">
+                <span class="eyebrow">v1.2.0 • Open Source • Agent-Native</span>
+                <h1>Email infrastructure that feels native to automation.</h1>
+                <p>
+                    MailGoat gives teams a <strong>CLI-first</strong> workflow for sending, monitoring,
+                    and debugging mail on top of Postal. Less glue code, fewer manual hops, faster iteration.
+                </p>
+
                 <div class="cta-buttons">
                     <a href="https://github.com/mailgoatai/mailgoat" class="btn btn-primary">View on GitHub</a>
                     <a href="https://www.npmjs.com/package/mailgoat" class="btn btn-secondary">Install via npm</a>
+                    <a href="/blog" class="btn btn-secondary">Read the Blog</a>
+                </div>
+
+                <div class="hero-grid reveal delay">
+                    <div class="kpi"><div class="label">License</div><div class="value">MIT</div></div>
+                    <div class="kpi"><div class="label">Focus</div><div class="value">CLI + Admin UX</div></div>
+                    <div class="kpi"><div class="label">Works With</div><div class="value">Postal</div></div>
+                    <div class="kpi"><div class="label">Built For</div><div class="value">Developers & Agents</div></div>
                 </div>
 
                 <div class="code-block">
-                    <div class="comment"># Install</div>
-                    <div class="command">$ npm install -g mailgoat</div>
-                    <br>
-                    <div class="comment"># Send email (no OAuth, no browser, just works)</div>
-                    <div class="command">$ mailgoat send \<br>
-                    &nbsp;&nbsp;--to agent@example.com \<br>
-                    &nbsp;&nbsp;--subject "Task complete" \<br>
-                    &nbsp;&nbsp;--body "Analysis finished"</div>
+                    <div class="comment"># install + configure</div>
+                    npm install -g mailgoat<br />
+                    mailgoat config init<br /><br />
+                    <div class="comment"># send a test email</div>
+                    mailgoat send --to user@example.com --subject "Hello" --body "World"
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="problem">
-            <div class="container">
-                <h2>The Problem</h2>
-                <p class="subtitle">Traditional email APIs weren't built for agents</p>
-
-                <div class="features">
-                    <div class="feature">
-                        <h3>❌ OAuth Flows</h3>
-                        <p>Designed for humans with browsers. Agents need API keys.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>❌ Rate Limits</h3>
-                        <p>Punish programmatic access. Agents send at scale.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>❌ Phone Verification</h3>
-                        <p>Assumes you have a phone number. Agents don't.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>❌ Human-Centric Docs</h3>
-                        <p>Written for developers, not autonomous systems.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>❌ Unpredictable Pricing</h3>
-                        <p>Complex tiers that don't scale with agent workloads.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>❌ Closed Source</h3>
-                        <p>Can't audit, can't trust, can't customize.</p>
-                    </div>
-                </div>
+    <section id="problem">
+        <div class="container">
+            <h2>The Workflow Gap</h2>
+            <p class="subtitle">Postal is strong infrastructure. Daily operator workflows still needed better ergonomics.</p>
+            <div class="features">
+                <div class="feature"><h3>Manual friction</h3><p>Common send/debug flows were fragmented across scripts, APIs, and dashboards.</p></div>
+                <div class="feature"><h3>Slow troubleshooting</h3><p>Inbox and message detail context was hard to inspect quickly under pressure.</p></div>
+                <div class="feature"><h3>Ops overhead</h3><p>Status checks and repetitive utility operations were harder than they should be.</p></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="solution">
-            <div class="container">
-                <h2>The Solution</h2>
-                <p class="subtitle">MailGoat is CLI-first, agent-native email</p>
-
-                <div class="features">
-                    <div class="feature">
-                        <h3>✅ API-Key Auth</h3>
-                        <p>No OAuth dance. No browser redirects. Just API keys.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✅ Agent-Friendly Limits</h3>
-                        <p>Built for programmatic use. Scale as you grow.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✅ Zero Verification</h3>
-                        <p>Instant signup via CLI. No phone, no email, no friction.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✅ CLI-First</h3>
-                        <p>Because agents live in terminals, not browsers.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✅ Simple Pricing</h3>
-                        <p>Pay for what you use. Transparent and predictable.</p>
-                    </div>
-                    <div class="feature">
-                        <h3>✅ Open Source (MIT)</h3>
-                        <p>Audit it. Fork it. Trust it. Self-host it.</p>
-                    </div>
-                </div>
+    <section id="solution">
+        <div class="container">
+            <h2>What MailGoat Adds</h2>
+            <p class="subtitle">A practical layer for sending, monitoring, inbox operations, and admin workflows.</p>
+            <div class="features">
+                <div class="feature"><h3>CLI for sending</h3><p>Fast command-line sends for local testing, CI/CD, and automation jobs.</p></div>
+                <div class="feature"><h3>Admin panel</h3><p>Browser UI for operational visibility, inbox drill-down, and common controls.</p></div>
+                <div class="feature"><h3>Inbox management</h3><p>Navigate inboxes and inspect message details with a cleaner debugging path.</p></div>
+                <div class="feature"><h3>Analytics dashboard</h3><p>High-signal snapshots of behavior and health without bespoke dashboards.</p></div>
+                <div class="feature"><h3>Open source</h3><p>MIT-licensed and self-hostable so teams can audit and extend confidently.</p></div>
+                <div class="feature"><h3>Operator-first UX</h3><p>Designed to reduce context-switching and keep incident response sharp.</p></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="comparison">
-            <div class="container">
-                <h2>Why MailGoat?</h2>
-                <p class="subtitle">See how we compare to traditional providers</p>
-
+    <section id="comparison">
+        <div class="container">
+            <h2>Why Teams Pick It</h2>
+            <p class="subtitle">Built around everyday email operations, not just API surface area.</p>
+            <div class="comparison-wrap">
                 <div class="comparison-table">
-                    <div class="header">Feature</div>
-                    <div class="header">Traditional Providers</div>
+                    <div class="header">Capability</div>
+                    <div class="header">Generic Setup</div>
                     <div class="header mailgoat">MailGoat</div>
 
-                    <div>API-Key Auth</div>
-                    <div class="crossmark">❌ OAuth only</div>
-                    <div class="mailgoat checkmark">✅ Yes</div>
+                    <div>CLI-driven workflow</div>
+                    <div class="crossmark">❌ patchwork</div>
+                    <div class="mailgoat checkmark">✅ first-class</div>
 
-                    <div>CLI-First</div>
-                    <div class="crossmark">❌ Web/API only</div>
-                    <div class="mailgoat checkmark">✅ Yes</div>
+                    <div>Inbox/message debug UX</div>
+                    <div class="crossmark">❌ custom build</div>
+                    <div class="mailgoat checkmark">✅ built-in</div>
 
-                    <div>Phone Verification</div>
-                    <div class="crossmark">❌ Required</div>
-                    <div class="mailgoat checkmark">✅ None</div>
+                    <div>Operational dashboard</div>
+                    <div class="crossmark">❌ external setup</div>
+                    <div class="mailgoat checkmark">✅ integrated</div>
 
-                    <div>Rate Limits</div>
-                    <div class="crossmark">❌ Low (human-centric)</div>
-                    <div class="mailgoat checkmark">✅ High (agent-friendly)</div>
-
-                    <div>Open Source</div>
-                    <div class="crossmark">❌ No</div>
-                    <div class="mailgoat checkmark">✅ MIT License</div>
-
-                    <div>Self-Hosting</div>
-                    <div class="crossmark">❌ No</div>
-                    <div class="mailgoat checkmark">✅ Yes (30 min setup)</div>
+                    <div>License flexibility</div>
+                    <div class="crossmark">❌ varies</div>
+                    <div class="mailgoat checkmark">✅ MIT</div>
                 </div>
             </div>
-        </section>
-
-        <section id="cta">
-            <div class="container" style="text-align: center;">
-                <h2>Ready to Get Started?</h2>
-                <p class="subtitle">Join the future of agent email</p>
-                <div class="cta-buttons">
-                    <a href="https://github.com/mailgoatai/mailgoat" class="btn btn-primary">View on GitHub</a>
-                    <a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md" class="btn btn-secondary">Self-Host in 30 Minutes</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>Built by AI agents, for AI agents. Open source under MIT license.</p>
-            <p>
-                <a href="https://github.com/mailgoatai/mailgoat">GitHub</a> ·
-                <a href="https://github.com/mailgoatai/mailgoat/issues">Issues</a> ·
-                <a href="https://github.com/mailgoatai/mailgoat#readme">Documentation</a>
-            </p>
         </div>
-    </footer>
+    </section>
+
+    <section id="cta">
+        <div class="container">
+            <div class="cta-panel surface">
+                <h2>Ship Faster With Better Email Workflows</h2>
+                <p class="subtitle">Use MailGoat for real operational work, then adapt it to your stack.</p>
+                <div class="cta-buttons" style="justify-content:center;">
+                    <a href="https://github.com/mailgoatai/mailgoat" class="btn btn-primary">Get Started</a>
+                    <a href="https://github.com/mailgoatai/mailgoat/blob/master/docs/self-hosting-guide.md" class="btn btn-secondary">Self-Hosting Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>Built by AI agents, for AI agents. Open source under MIT.</p>
+        <p>
+            <a href="https://github.com/mailgoatai/mailgoat">GitHub</a> ·
+            <a href="/blog">Blog</a> ·
+            <a href="https://github.com/mailgoatai/mailgoat/issues">Issues</a>
+        </p>
+    </div>
+</footer>
 </body>
 </html>

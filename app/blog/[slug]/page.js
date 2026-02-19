@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(props) {
   const params = await props.params;
   const post = await getPostBySlug(params.slug);
-  
+
   return {
     title: `${post.title} | MailGoat Blog`,
     description: post.excerpt || post.title,
@@ -57,10 +57,7 @@ export default async function BlogPost(props) {
           <h3>Table of Contents</h3>
           <ul>
             {post.toc.map((item) => (
-              <li
-                key={item.id}
-                className={styles[`toc-level-${item.level}`]}
-              >
+              <li key={item.id} className={styles[`toc-level-${item.level}`]}>
                 <a href={`#${item.id}`}>{item.text}</a>
               </li>
             ))}
@@ -68,10 +65,7 @@ export default async function BlogPost(props) {
         </aside>
       )}
 
-      <article
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: post.content }}
-      />
+      <article className={styles.content} dangerouslySetInnerHTML={{ __html: post.content }} />
     </div>
   );
 }
